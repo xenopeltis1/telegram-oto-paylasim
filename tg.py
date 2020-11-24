@@ -9,13 +9,14 @@ class TelegramBot:
     token = "telegram bot tokeni yaz"
     chatid = "paylaşımların yapılacağı telegram kanalının chat id'si"
     dhook = 'discord webhook yaz'
+    dakika = 60
     banned_hours = [0,1,2,3,4,5,6,7,8]
     admins = ['hkeydesign']
 
 
     @classmethod
-    def log(cmd,message):
-        r = requests.post(TelegramBot.dhook,data={
+    def log(cmd, message):
+        r = requests.post(TelegramBot.dhook, data={
         'content':f'```{message}```'
         })
         post = True
@@ -62,7 +63,7 @@ class TelegramBot:
 
 
     @classmethod
-    def share(cmd,message):
+    def share(cmd, message):
         msg = {'text': message}
         r = requests.post(
             f'https://api.telegram.org/bot{TelegramBot.token}/sendMessage?chat_id={TelegramBot.chatid}',
@@ -113,7 +114,7 @@ def sh(posts):
             log_message = 'Gece gece paylaşım mı yapılır aga :D Kafayı mı sıyırdın ?'
             TelegramBot.log(log_message)
 
-        time.sleep(20)
+        time.sleep(TelegramBot.dakika)
 
 
 x = threading.Thread(target=checking, args=(posts,))
